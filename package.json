@@ -8,7 +8,8 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0"
+    "eslint-config-prettier": "^2.9.0",
+    "prettier": "^1.12.1"
   },
   "scripts": {
     "lint": "yarn eslint chat-server.js chat-frontend.js"
