@@ -1,8 +1,9 @@
 {
   "rules": {
-      "semi": ["error", "always"],
-      "quotes": ["error", "single"],
-      "no-console": "off"
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "no-console": "off"
   },
   "extends": "eslint:recommended",
   "env": {
