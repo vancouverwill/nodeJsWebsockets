@@ -9,5 +9,8 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0"
+  },
+  "scripts": {
+    "lint": "yarn eslint chat-server.js chat-frontend.js"
   }
 }

@@ -1,5 +1,5 @@
 $(function () {
-  "use strict";
+  'use strict';
 
   // for better performance - to avoid searching in DOM
   var content = $('#content');
@@ -35,7 +35,7 @@ $(function () {
   connection.onerror = function (error) {
       // just in there were some problems with conenction...
       content.html($('<p>', { text: 'Sorry, but there\'s some problem with your '
-                                  + 'connection or the server is down.' } ));
+                                  + `connection or the server is down. error:${JSON.stringify(error)}` } ));
   };
 
   // most important part - incoming messages

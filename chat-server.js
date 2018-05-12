@@ -36,7 +36,8 @@ colors.sort(function() { return Math.random() > 0.5; } );
  * HTTP server
  */
 var server = http.createServer(function(request, response) {
-    // Not important for us. We're writing WebSocket server, not HTTP server
+  // Not important for us. We're writing WebSocket server,
+  // not HTTP server
     console.log((new Date()) + ' HTTP server. URL'
       + request.url + ' requested.');
 
@@ -83,14 +84,17 @@ wsServer.on('request', function(request) {
 
     // send back chat history
     if (history.length > 0) {
+      console.log((new Date()) + ' Send history!');
         connection.sendUTF(JSON.stringify( { type: 'history', data: history} ));
     }
 
     // user sent some message
     connection.on('message', function(message) {
         if (message.type === 'utf8') { // accept only text
+            console.log('message', message);
             if (userName === false) { // first message sent by user is their name
                 // remember user name
+                
                 userName = htmlEntities(message.utf8Data);
                 // get random color and send it back to the user
                 userColor = colors.shift();
