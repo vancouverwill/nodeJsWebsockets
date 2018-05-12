@@ -10,6 +10,7 @@ var webSocketsServerPort = 1337;
 // websocket and http servers
 var webSocketServer = require('websocket').server;
 var http = require('http');
+var fs = require('fs');
 
 /**
  * Global variables
@@ -18,6 +19,21 @@ var http = require('http');
 var history = [];
 // list of currently connected clients (users)
 var clients = [];
+
+var http_files = {};
+[
+  // ['/jquery.min.js', 'application/javascript'],
+  ['/chat-frontend.js', 'application/javascript'],
+  ['/frontend.html', 'text/html']
+].forEach(function(fn) {
+  http_files[fn[0]] = {
+    content: fs.readFileSync('.' + fn[0]).toString(),
+    contentType: fn[1]
+  };
+});
+
+http_files['/'] = http_files['/frontend.html'];
+http_files['/index.html'] = http_files['/frontend.html'];
 
 /**
  * Helper function for escaping input strings
@@ -44,8 +60,12 @@ var server = http.createServer(function(request, response) {
   // Not important for us. We're writing WebSocket server,
   // not HTTP server
   console.log(new Date() + ' HTTP server. URL' + request.url + ' requested.');
-
-  if (request.url === '/status') {
+  var file = http_files[request.url];
+  if (file) {
+    response.writeHeader(200, { 'content-type': file.contentType });
+    response.write(file.content);
+    return response.end();
+  } else if (request.url === '/status') {
     response.writeHead(200, { 'Content-Type': 'application/json' });
     var responseObject = {
       currentClients: clients.length,
